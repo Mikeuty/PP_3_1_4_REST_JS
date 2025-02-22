@@ -2,7 +2,9 @@ package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
+import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import java.util.List;
@@ -12,9 +14,11 @@ import java.util.List;
 public class AdminRestController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
-    public AdminRestController(UserService userService) {
+    public AdminRestController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping
@@ -39,5 +43,10 @@ public class AdminRestController {
         userService.deleteUser(id);
 
         return ResponseEntity.ok(String.format("User with ID = %d was delete!", id));
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<Role>> getAllRoles() {
+        return ResponseEntity.ok(roleService.getRoles());
     }
 }

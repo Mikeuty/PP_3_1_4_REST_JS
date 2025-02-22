@@ -20,14 +20,14 @@
             <column name="last_name" value="admin"/>
             <column name="age" value="30"/>
             <column name="email" value="admin@mail.ru"/>
-            <column name="password" value="admin"/>
+            <column name="password" value="$2a$10$OTXw8SXjJavnpZC1Km4rLOMK9fNomh2.NW/MqShYSU7V358OfWyVO"/>
         </insert>
         <insert tableName="users">
             <column name="name" value="user"/>
             <column name="last_name" value="user"/>
             <column name="age" value="30"/>
             <column name="email" value="user@mail.ru"/>
-            <column name="password" value="user"/>
+            <column name="password" value="$2a$10$k6UzulLiecQwlN7O2.JSbu3acetS7jF.6QdP0TzFfl9kAGoeKlbiC"/>
         </insert>
     </changeSet>
 

@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.entities;
 
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,7 +16,8 @@ public class Role implements GrantedAuthority {
     @Column(name = "name", unique = true, length = 100)
     private String name;
 
-    public Role() { }
+    public Role() {
+    }
 
     public Role(String name) {
         this.name = name;

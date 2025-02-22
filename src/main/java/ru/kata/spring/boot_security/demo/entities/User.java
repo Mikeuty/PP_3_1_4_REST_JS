@@ -6,8 +6,11 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -39,7 +42,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String lastName, String password,String email, int age, Set<Role> roles) {
+    public User(String name, String lastName, String password, String email, int age, Set<Role> roles) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;

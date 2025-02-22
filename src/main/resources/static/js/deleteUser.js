@@ -9,7 +9,7 @@ function deleteUser() {
         ev.preventDefault();
         console.log(deleteForm.id.value);
 
-        fetch("http://localhost:8080/api/admin/delete/" + deleteForm.id.value, {
+        fetch("/api/admin/delete/" + deleteForm.id.value, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ function deleteUser() {
 }
 
 async function getUser(id) {
-    let url = "http://localhost:8080/api/user/" + id;
+    let url = "/api/user/" + id;
     let response = await fetch(url);
     return await response.json();
 }
@@ -45,7 +45,7 @@ async function showDeleteModal(id) {
     form.age.value = user.age;
     form.email.value = user.email;
 
-    await fetch("http://localhost:8080/api/role")
+    await fetch("/api/admin/roles")
         .then(res => res.json())
         .then(roles => {
             roles.forEach(role => {

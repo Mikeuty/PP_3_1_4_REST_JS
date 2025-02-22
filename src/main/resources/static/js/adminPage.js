@@ -6,7 +6,7 @@ const tbody = $('#tbodyAllUsersTable');
 
 async function allUsers() {
     tbody.empty()
-    fetch("http://localhost:8080/api/admin")
+    fetch("/api/admin")
         .then(res => res.json())
         .then(data => {
             data.forEach(user => {

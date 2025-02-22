@@ -1,91 +1,39 @@
 package ru.kata.spring.boot_security.demo.services;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
-import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+
 import java.util.List;
-import java.util.Optional;
 
-
-@Service
-public class UserService implements UserDetailsService {
-
-
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, @Lazy PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+public interface UserService extends UserDetailsService {
 
     @Transactional(readOnly = true)
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
+    List<User> findAll();
 
     @Transactional(readOnly = true)
-    public User getUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-
-        if (user.isEmpty()) {
-            throw new IllegalArgumentException(String.format("There is no user with ID = %d in database", id));
-        }
-
-        return user.get();
-    }
+    User getUserById(Long id);
 
     @Transactional(readOnly = true)
-    public List<Role> listRoles() {
-        return roleRepository.findAll();
-    }
+    List<Role> listRoles();
 
     @Transactional
-    public void saveUser(User user) {
-        userRepository.save(user);
-    }
+    void saveUser(User user);
 
     @Transactional
-    public void updateUser( User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
+    void updateUser(User user);
 
     @Transactional
-    public void deleteUser(long id) {
-        userRepository.deleteById(id);
-    }
+    void deleteUser(long id);
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with email: " + email);
-        }
-
-        return user;
-    }
+    UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
 
     @Transactional(readOnly = true)
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-
+    User findByEmail(String email);
 }
-
